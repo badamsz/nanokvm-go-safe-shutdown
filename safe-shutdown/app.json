@@ -1,0 +1,33 @@
+{
+  "app_id": "io.github.badamsz.safe_shutdown",
+  "name": "Safe Shutdown",
+  "creator": "badamsz",
+  "create_time": "2026-11-20",
+  "version": "1.1.0",
+  "desc": "Gracefully shut down the connected computer, the NanoKVM Go itself, or both - and confirm the computer powered off.",
+  "category": "tools",
+  "icon": "assets/icon.png",
+  "env": {
+    "TARGET_OS": {
+      "label": "Target OS profile",
+      "description": "windows, windows-dialog, linux-power-key, linux-terminal, macos, or custom.",
+      "required": true,
+      "default": "windows"
+    },
+    "CUSTOM_SEQUENCE": {
+      "label": "Custom key sequence",
+      "description": "Used when TARGET_OS is custom. Steps separated by ';' - key:MetaLeft+KeyR, key:Power@200, text:shutdown /s /t 0, wait:1500. Use \\; for a literal semicolon."
+    },
+    "VERIFY_TIMEOUT": {
+      "label": "Power-off timeout (seconds)",
+      "description": "How long to wait for the target's video signal to disappear before reporting it is still on.",
+      "required": true,
+      "default": "180"
+    },
+    "NANOKVM_MCP_KEY": {
+      "label": "MCP API key (optional)",
+      "description": "Leave empty to read the key from /etc/kvm/ai.json. MCP must be enabled in the NanoKVM web UI either way.",
+      "secret": true
+    }
+  }
+}
