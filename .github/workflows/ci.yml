@@ -10,8 +10,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.x"
       - name: Unit tests
@@ -21,7 +21,7 @@ jobs:
           pip install Pillow
           curl -fsSL -o "$RUNNER_TEMP/appbase.py" https://raw.githubusercontent.com/sipeed/NanoKVM-Go-Apps/base/appbase.py
           python3 tools/render_screens.py --appbase "$RUNNER_TEMP/appbase.py" --out "$RUNNER_TEMP/screens"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: screens
           path: ${{ runner.temp }}/screens
@@ -33,7 +33,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check tag matches app.json version
         run: |
           version=$(python3 -c "import json;print(json.load(open('safe-shutdown/app.json'))['version'])")
@@ -51,7 +51,7 @@ jobs:
             found
           ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
           test -s "$RUNNER_TEMP/notes.md" || { echo "::error::No CHANGELOG entry for $GITHUB_REF_NAME"; exit 1; }
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
         with:
           files: ${{ steps.build.outputs.zip }}
           body_path: ${{ runner.temp }}/notes.md
